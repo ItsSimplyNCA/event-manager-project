@@ -1,0 +1,2169 @@
+{
+  "info": {
+    "_postman_id": "7f314911-b0c0-42d8-adb5-0fa096d65ea4",
+    "name": "Event Manager API",
+    "description": "Simple API documentation for the Event Manager + Help Desk application.\n\nAuthentication:\n- Session-based auth with Laravel Sanctum\n- Frontend should first call GET /sanctum/csrf-cookie\n- Then call POST /login\n- Protected /api/* endpoints require authenticated session cookies\n",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53211713",
+    "_collection_link": "https://go.postman.co/collection/53211713-7f314911-b0c0-42d8-adb5-0fa096d65ea4?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "sanctum",
+      "item": [
+        {
+          "name": "csrf-cookie",
+          "item": [
+            {
+              "name": "Initialize CSRF cookie",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/sanctum/csrf-cookie",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sanctum",
+                    "csrf-cookie"
+                  ]
+                },
+                "description": "Must be called before login when using SPA + Sanctum session auth."
+              },
+              "response": [
+                {
+                  "name": "CSRF cookie initialized",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/sanctum/csrf-cookie",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sanctum",
+                        "csrf-cookie"
+                      ]
+                    }
+                  },
+                  "status": "No Content",
+                  "code": 204,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "login",
+      "item": [
+        {
+          "name": "Login user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              },
+              {
+                "key": "Origin",
+                "value": "http://localhost:5173",
+                "type": "text"
+              },
+              {
+                "key": "X-XSRF-TOKEN",
+                "value": "eyJpdiI6Ik05RzRQWWdxNURlQ00rUnlyUVhkd3c9PSIsInZhbHVlIjoidnJvdTNmUi96ZE1MNTJUS0lmMm4wOTFuVEI3Um5sMTRuejNGZExmcmpBWElNN0lyNkYrSG52bmVKTjFZWHEwakVldmd6YWwzbEZHbVBEanRvb0tKbjJOb3FFZkl6S21rd204b3l4MTk3cXlxY2lBZnE0RWN4SFovOUFMNXk0aEUiLCJtYWMiOiIwYmQ4NmQ2ZDMwYTZlYTVhMDg2NjkxNjAyZDE2NDYzOTg4YTNhY2ZjYmVjYjE5OGZkOTA0ZjMyODA3NTQ5ZjMyIiwidGFnIjoiIn0=",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "login"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Login successful",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"Teszt User\",\n    \"email\": \"user@example.com\",\n    \"role\": \"user\"\n  }\n}"
+            },
+            {
+              "name": "Validation error or wrong credentials",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\",\n  \"password\": \"password123\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "login"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "logout",
+      "item": [
+        {
+          "name": "Logout current user",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "logout"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Logged out successfully",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "logout"
+                  ]
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            },
+            {
+              "name": "Unauthenticated",
+              "originalRequest": {
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{baseUrl}}/logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "logout"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "text",
+              "header": [],
+              "cookie": [],
+              "body": ""
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "forgot-password",
+      "item": [
+        {
+          "name": "Send password reset link",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"user@example.com\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/forgot-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "forgot-password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Reset link sent",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forgot-password",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forgot-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"We have emailed your password reset link.\"\n}"
+            },
+            {
+              "name": "Validation error",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"user@example.com\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/forgot-password",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "forgot-password"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "reset-password",
+      "item": [
+        {
+          "name": "Reset password using token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"token\": \"reset-token-from-email\",\n  \"email\": \"user@example.com\",\n  \"password\": \"newpassword123\",\n  \"password_confirmation\": \"newpassword123\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reset-password",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reset-password"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "Password reset successful",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"reset-token-from-email\",\n  \"email\": \"user@example.com\",\n  \"password\": \"newpassword123\",\n  \"password_confirmation\": \"newpassword123\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reset-password",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reset-password"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"Your password has been reset.\"\n}"
+            },
+            {
+              "name": "Validation error / invalid token",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"token\": \"reset-token-from-email\",\n  \"email\": \"user@example.com\",\n  \"password\": \"newpassword123\",\n  \"password_confirmation\": \"newpassword123\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reset-password",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reset-password"
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "api",
+      "item": [
+        {
+          "name": "me",
+          "item": [
+            {
+              "name": "Get current authenticated user",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Origin",
+                    "value": "http://localhost:5173",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Referer",
+                    "value": "http://localhost:5173",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/me",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "me"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Current user",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"user\": {\n    \"id\": 1,\n    \"name\": \"Teszt User\",\n    \"email\": \"user@example.com\",\n    \"role\": \"user\"\n  }\n}"
+                },
+                {
+                  "name": "Unauthenticated",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/me",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "me"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "events",
+          "item": [
+            {
+              "name": "{event}",
+              "item": [
+                {
+                  "name": "Update event description",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"description\": \"Updated description\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/events/:event",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "events",
+                        ":event"
+                      ],
+                      "variable": [
+                        {
+                          "key": "event",
+                          "value": "1"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Event updated",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"Updated description\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/events/:event",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "events",
+                            ":event"
+                          ],
+                          "variable": [
+                            {
+                              "key": "event",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"user_id\": 1,\n    \"title\": \"Project meeting\",\n    \"occurs_at\": \"2026-03-15T10:00:00.000000Z\",\n    \"description\": \"Weekly project sync\",\n    \"created_at\": \"2000-11-03T19:53:20.759Z\",\n    \"updated_at\": \"2007-07-09T10:32:37.533Z\"\n  }\n}"
+                    },
+                    {
+                      "name": "Unauthenticated",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"Updated description\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/events/:event",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "events",
+                            ":event"
+                          ],
+                          "variable": [
+                            {
+                              "key": "event",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    },
+                    {
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"Updated description\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/events/:event",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "events",
+                            ":event"
+                          ],
+                          "variable": [
+                            {
+                              "key": "event",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    },
+                    {
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "PATCH",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"description\": \"Updated description\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/events/:event",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "events",
+                            ":event"
+                          ],
+                          "variable": [
+                            {
+                              "key": "event",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    }
+                  ]
+                },
+                {
+                  "name": "Delete event",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/events/:event",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "events",
+                        ":event"
+                      ],
+                      "variable": [
+                        {
+                          "key": "event",
+                          "value": "1"
+                        }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Event deleted",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/events/:event",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "events",
+                            ":event"
+                          ],
+                          "variable": [
+                            {
+                              "key": "event",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "No Content",
+                      "code": 204,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    },
+                    {
+                      "name": "Unauthenticated",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/events/:event",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "events",
+                            ":event"
+                          ],
+                          "variable": [
+                            {
+                              "key": "event",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    },
+                    {
+                      "name": "Forbidden",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/events/:event",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "events",
+                            ":event"
+                          ],
+                          "variable": [
+                            {
+                              "key": "event",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    },
+                    {
+                      "name": "Not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/events/:event",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "events",
+                            ":event"
+                          ],
+                          "variable": [
+                            {
+                              "key": "event",
+                              "value": "1"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "name": "List current user's events",
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/api/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "events"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Event list",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"user_id\": 1,\n      \"title\": \"Project meeting\",\n      \"occurs_at\": \"2026-03-15T10:00:00.000000Z\",\n      \"description\": \"Weekly project sync\",\n      \"created_at\": \"2003-07-09T19:08:18.039Z\",\n      \"updated_at\": \"1998-02-02T11:28:09.297Z\"\n    },\n    {\n      \"id\": 1,\n      \"user_id\": 1,\n      \"title\": \"Project meeting\",\n      \"occurs_at\": \"2026-03-15T10:00:00.000000Z\",\n      \"description\": \"Weekly project sync\",\n      \"created_at\": \"1946-10-31T00:23:32.607Z\",\n      \"updated_at\": \"2018-02-12T12:07:45.044Z\"\n    }\n  ]\n}"
+                },
+                {
+                  "name": "Unauthenticated",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                }
+              ]
+            },
+            {
+              "name": "Create new event",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"title\": \"Project meeting\",\n  \"occurs_at\": \"2026-03-15T10:00:00\",\n  \"description\": \"Weekly project sync\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/api/events",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "api",
+                    "events"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Event created",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"Project meeting\",\n  \"occurs_at\": \"2026-03-15T10:00:00\",\n  \"description\": \"Weekly project sync\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Created",
+                  "code": 201,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"user_id\": 1,\n    \"title\": \"Project meeting\",\n    \"occurs_at\": \"2026-03-15T10:00:00.000000Z\",\n    \"description\": \"Weekly project sync\",\n    \"created_at\": \"2000-11-03T19:53:20.759Z\",\n    \"updated_at\": \"2007-07-09T10:32:37.533Z\"\n  }\n}"
+                },
+                {
+                  "name": "Unauthenticated",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"Project meeting\",\n  \"occurs_at\": \"2026-03-15T10:00:00\",\n  \"description\": \"Weekly project sync\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "text",
+                  "header": [],
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "Validation error",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"title\": \"Project meeting\",\n  \"occurs_at\": \"2026-03-15T10:00:00\",\n  \"description\": \"Weekly project sync\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "events"
+                      ]
+                    }
+                  },
+                  "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                  "code": 422,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "support",
+          "item": [
+            {
+              "name": "chat",
+              "item": [
+                {
+                  "name": "messages",
+                  "item": [
+                    {
+                      "name": "Send message as current user",
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"message\": \"Emberi ügyintézőt kérek\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/api/support/chat/messages",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "support",
+                            "chat",
+                            "messages"
+                          ]
+                        }
+                      },
+                      "response": [
+                        {
+                          "name": "Updated chat after message send",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"message\": \"Emberi ügyintézőt kérek\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/support/chat/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "support",
+                                "chat",
+                                "messages"
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"user_id\": 1,\n    \"assigned_agent_id\": 2,\n    \"status\": \"waiting_agent\",\n    \"last_message_at\": \"2003-10-13T19:05:31.994Z\",\n    \"user\": {\n      \"id\": 1,\n      \"name\": \"Teszt User\",\n      \"email\": \"user@example.com\",\n      \"role\": \"user\"\n    },\n    \"assigned_agent\": {\n      \"id\": 1,\n      \"name\": \"Teszt User\",\n      \"email\": \"user@example.com\",\n      \"role\": \"user\"\n    },\n    \"messages\": [\n      {\n        \"id\": 1,\n        \"support_chat_id\": 1,\n        \"sender_type\": \"user\",\n        \"sender_user_id\": 1,\n        \"body\": \"Segítség kell a jelszóval\",\n        \"created_at\": \"1961-05-11T18:31:44.747Z\",\n        \"updated_at\": \"1969-05-29T00:27:47.404Z\"\n      },\n      {\n        \"id\": 1,\n        \"support_chat_id\": 1,\n        \"sender_type\": \"user\",\n        \"sender_user_id\": 1,\n        \"body\": \"Segítség kell a jelszóval\",\n        \"created_at\": \"2009-02-27T19:38:41.120Z\",\n        \"updated_at\": \"1974-04-12T09:41:27.714Z\"\n      }\n    ],\n    \"created_at\": \"2000-11-24T00:01:56.612Z\",\n    \"updated_at\": \"1955-03-23T15:24:28.134Z\"\n  }\n}"
+                        },
+                        {
+                          "name": "Unauthenticated",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"message\": \"Emberi ügyintézőt kérek\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/support/chat/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "support",
+                                "chat",
+                                "messages"
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "text",
+                          "header": [],
+                          "cookie": [],
+                          "body": ""
+                        },
+                        {
+                          "name": "Validation error",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"message\": \"Emberi ügyintézőt kérek\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/support/chat/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "support",
+                                "chat",
+                                "messages"
+                              ]
+                            }
+                          },
+                          "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                          "code": 422,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "Get current user's active support chat",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/support/chat",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "support",
+                        "chat"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Current chat",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/support/chat",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "support",
+                            "chat"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"user_id\": 1,\n    \"assigned_agent_id\": 2,\n    \"status\": \"waiting_agent\",\n    \"last_message_at\": \"2003-10-13T19:05:31.994Z\",\n    \"user\": {\n      \"id\": 1,\n      \"name\": \"Teszt User\",\n      \"email\": \"user@example.com\",\n      \"role\": \"user\"\n    },\n    \"assigned_agent\": {\n      \"id\": 1,\n      \"name\": \"Teszt User\",\n      \"email\": \"user@example.com\",\n      \"role\": \"user\"\n    },\n    \"messages\": [\n      {\n        \"id\": 1,\n        \"support_chat_id\": 1,\n        \"sender_type\": \"user\",\n        \"sender_user_id\": 1,\n        \"body\": \"Segítség kell a jelszóval\",\n        \"created_at\": \"1961-05-11T18:31:44.747Z\",\n        \"updated_at\": \"1969-05-29T00:27:47.404Z\"\n      },\n      {\n        \"id\": 1,\n        \"support_chat_id\": 1,\n        \"sender_type\": \"user\",\n        \"sender_user_id\": 1,\n        \"body\": \"Segítség kell a jelszóval\",\n        \"created_at\": \"2009-02-27T19:38:41.120Z\",\n        \"updated_at\": \"1974-04-12T09:41:27.714Z\"\n      }\n    ],\n    \"created_at\": \"2000-11-24T00:01:56.612Z\",\n    \"updated_at\": \"1955-03-23T15:24:28.134Z\"\n  }\n}"
+                    },
+                    {
+                      "name": "Unauthenticated",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/support/chat",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "support",
+                            "chat"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "agent",
+          "item": [
+            {
+              "name": "chats",
+              "item": [
+                {
+                  "name": "{chat}",
+                  "item": [
+                    {
+                      "name": "assign",
+                      "item": [
+                        {
+                          "name": "Assign chat to current agent",
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/api/agent/chats/:chat/assign",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "agent",
+                                "chats",
+                                ":chat",
+                                "assign"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat",
+                                  "value": "1"
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "name": "Chat assigned",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/assign",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "assign"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"user_id\": 1,\n    \"assigned_agent_id\": 2,\n    \"status\": \"waiting_agent\",\n    \"last_message_at\": \"2003-10-13T19:05:31.994Z\",\n    \"user\": {\n      \"id\": 1,\n      \"name\": \"Teszt User\",\n      \"email\": \"user@example.com\",\n      \"role\": \"user\"\n    },\n    \"assigned_agent\": {\n      \"id\": 1,\n      \"name\": \"Teszt User\",\n      \"email\": \"user@example.com\",\n      \"role\": \"user\"\n    },\n    \"messages\": [\n      {\n        \"id\": 1,\n        \"support_chat_id\": 1,\n        \"sender_type\": \"user\",\n        \"sender_user_id\": 1,\n        \"body\": \"Segítség kell a jelszóval\",\n        \"created_at\": \"1961-05-11T18:31:44.747Z\",\n        \"updated_at\": \"1969-05-29T00:27:47.404Z\"\n      },\n      {\n        \"id\": 1,\n        \"support_chat_id\": 1,\n        \"sender_type\": \"user\",\n        \"sender_user_id\": 1,\n        \"body\": \"Segítség kell a jelszóval\",\n        \"created_at\": \"2009-02-27T19:38:41.120Z\",\n        \"updated_at\": \"1974-04-12T09:41:27.714Z\"\n      }\n    ],\n    \"created_at\": \"2000-11-24T00:01:56.612Z\",\n    \"updated_at\": \"1955-03-23T15:24:28.134Z\"\n  }\n}"
+                            },
+                            {
+                              "name": "Unauthenticated",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/assign",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "assign"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "body": ""
+                            },
+                            {
+                              "name": "Agent access only",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/assign",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "assign"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "body": ""
+                            },
+                            {
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [],
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/assign",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "assign"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "body": ""
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "name": "messages",
+                      "item": [
+                        {
+                          "name": "Send agent message in chat",
+                          "request": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"message\": \"Szia, segítek megoldani a problémát.\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/api/agent/chats/:chat/messages",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "api",
+                                "agent",
+                                "chats",
+                                ":chat",
+                                "messages"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "chat",
+                                  "value": "1"
+                                }
+                              ]
+                            }
+                          },
+                          "response": [
+                            {
+                              "name": "Updated chat after agent message",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"message\": \"Szia, segítek megoldani a problémát.\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/messages",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "messages"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "{\n  \"data\": {\n    \"id\": 1,\n    \"user_id\": 1,\n    \"assigned_agent_id\": 2,\n    \"status\": \"waiting_agent\",\n    \"last_message_at\": \"2003-10-13T19:05:31.994Z\",\n    \"user\": {\n      \"id\": 1,\n      \"name\": \"Teszt User\",\n      \"email\": \"user@example.com\",\n      \"role\": \"user\"\n    },\n    \"assigned_agent\": {\n      \"id\": 1,\n      \"name\": \"Teszt User\",\n      \"email\": \"user@example.com\",\n      \"role\": \"user\"\n    },\n    \"messages\": [\n      {\n        \"id\": 1,\n        \"support_chat_id\": 1,\n        \"sender_type\": \"user\",\n        \"sender_user_id\": 1,\n        \"body\": \"Segítség kell a jelszóval\",\n        \"created_at\": \"1961-05-11T18:31:44.747Z\",\n        \"updated_at\": \"1969-05-29T00:27:47.404Z\"\n      },\n      {\n        \"id\": 1,\n        \"support_chat_id\": 1,\n        \"sender_type\": \"user\",\n        \"sender_user_id\": 1,\n        \"body\": \"Segítség kell a jelszóval\",\n        \"created_at\": \"2009-02-27T19:38:41.120Z\",\n        \"updated_at\": \"1974-04-12T09:41:27.714Z\"\n      }\n    ],\n    \"created_at\": \"2000-11-24T00:01:56.612Z\",\n    \"updated_at\": \"1955-03-23T15:24:28.134Z\"\n  }\n}"
+                            },
+                            {
+                              "name": "Unauthenticated",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"message\": \"Szia, segítek megoldani a problémát.\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/messages",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "messages"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "body": ""
+                            },
+                            {
+                              "name": "Agent access only",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"message\": \"Szia, segítek megoldani a problémát.\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/messages",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "messages"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Forbidden",
+                              "code": 403,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "body": ""
+                            },
+                            {
+                              "name": "Not found",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"message\": \"Szia, segítek megoldani a problémát.\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/messages",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "messages"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "text",
+                              "header": [],
+                              "cookie": [],
+                              "body": ""
+                            },
+                            {
+                              "name": "Validation error",
+                              "originalRequest": {
+                                "method": "POST",
+                                "header": [
+                                  {
+                                    "key": "Content-Type",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  }
+                                ],
+                                "body": {
+                                  "mode": "raw",
+                                  "raw": "{\n  \"message\": \"Szia, segítek megoldani a problémát.\"\n}",
+                                  "options": {
+                                    "raw": {
+                                      "headerFamily": "json",
+                                      "language": "json"
+                                    }
+                                  }
+                                },
+                                "url": {
+                                  "raw": "{{baseUrl}}/api/agent/chats/:chat/messages",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "api",
+                                    "agent",
+                                    "chats",
+                                    ":chat",
+                                    "messages"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "chat",
+                                      "value": "1"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+                              "code": 422,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "body": "{\n  \"message\": \"The given data was invalid.\",\n  \"errors\": {\n    \"key_0\": [\n      \"string\",\n      \"string\"\n    ],\n    \"key_1\": [\n      \"string\",\n      \"string\"\n    ]\n  }\n}"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "name": "List chats for agents",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/agent/chats",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "api",
+                        "agent",
+                        "chats"
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Agent chat list",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/agent/chats",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "agent",
+                            "chats"
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "body": "{\n  \"data\": [\n    {\n      \"id\": 1,\n      \"user_id\": 1,\n      \"assigned_agent_id\": 2,\n      \"status\": \"waiting_agent\",\n      \"last_message_at\": \"1963-12-23T00:43:05.541Z\",\n      \"user\": {\n        \"id\": 1,\n        \"name\": \"Teszt User\",\n        \"email\": \"user@example.com\",\n        \"role\": \"user\"\n      },\n      \"assigned_agent\": {\n        \"id\": 1,\n        \"name\": \"Teszt User\",\n        \"email\": \"user@example.com\",\n        \"role\": \"user\"\n      },\n      \"messages\": [\n        {\n          \"id\": 1,\n          \"support_chat_id\": 1,\n          \"sender_type\": \"user\",\n          \"sender_user_id\": 1,\n          \"body\": \"Segítség kell a jelszóval\",\n          \"created_at\": \"1967-02-24T23:07:05.508Z\",\n          \"updated_at\": \"1998-06-14T08:32:08.224Z\"\n        },\n        {\n          \"id\": 1,\n          \"support_chat_id\": 1,\n          \"sender_type\": \"user\",\n          \"sender_user_id\": 1,\n          \"body\": \"Segítség kell a jelszóval\",\n          \"created_at\": \"2018-11-23T05:09:05.119Z\",\n          \"updated_at\": \"1972-08-17T01:05:13.588Z\"\n        }\n      ],\n      \"created_at\": \"2022-01-05T19:08:32.870Z\",\n      \"updated_at\": \"2011-01-27T18:24:35.955Z\"\n    },\n    {\n      \"id\": 1,\n      \"user_id\": 1,\n      \"assigned_agent_id\": 2,\n      \"status\": \"waiting_agent\",\n      \"last_message_at\": \"1999-11-28T10:51:10.093Z\",\n      \"user\": {\n        \"id\": 1,\n        \"name\": \"Teszt User\",\n        \"email\": \"user@example.com\",\n        \"role\": \"user\"\n      },\n      \"assigned_agent\": {\n        \"id\": 1,\n        \"name\": \"Teszt User\",\n        \"email\": \"user@example.com\",\n        \"role\": \"user\"\n      },\n      \"messages\": [\n        {\n          \"id\": 1,\n          \"support_chat_id\": 1,\n          \"sender_type\": \"user\",\n          \"sender_user_id\": 1,\n          \"body\": \"Segítség kell a jelszóval\",\n          \"created_at\": \"1966-01-22T02:07:15.074Z\",\n          \"updated_at\": \"2009-06-10T14:28:41.489Z\"\n        },\n        {\n          \"id\": 1,\n          \"support_chat_id\": 1,\n          \"sender_type\": \"user\",\n          \"sender_user_id\": 1,\n          \"body\": \"Segítség kell a jelszóval\",\n          \"created_at\": \"2013-01-09T15:41:49.439Z\",\n          \"updated_at\": \"2015-04-05T02:07:51.408Z\"\n        }\n      ],\n      \"created_at\": \"1969-06-30T14:28:31.556Z\",\n      \"updated_at\": \"2016-08-23T12:09:10.054Z\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "name": "Unauthenticated",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/agent/chats",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "agent",
+                            "chats"
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    },
+                    {
+                      "name": "Agent access only",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [],
+                        "url": {
+                          "raw": "{{baseUrl}}/api/agent/chats",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "api",
+                            "agent",
+                            "chats"
+                          ]
+                        }
+                      },
+                      "status": "Forbidden",
+                      "code": 403,
+                      "_postman_previewlanguage": "text",
+                      "header": [],
+                      "cookie": [],
+                      "body": ""
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8000"
+    }
+  ]
+}
